@@ -169,3 +169,5 @@ Hardware-affecting changes must also run the applicable on-device checklist in t
 Never upload the app-only `build/FoloToy-AI-Passport.bin` to the community. Only
 the validated `build/FoloToy-AI-Passport-full.bin` contains the complete checked
 firmware layout.
+
+The host test gate selects GNU `--gc-sections` on Linux and Apple `-dead_strip` on macOS. Voice Flappy UI QA can additionally run `tools/render_flappy_ui.sh` after Managed Components are available; it uses the same application UI and font with a 24 KB LVGL pool.

@@ -144,3 +144,5 @@ cc -std=c11 -Wall -Wextra -Werror -Imain \
 
 社区只能上传验证通过的 `build/FoloToy-AI-Passport-full.bin`，不得上传应用单镜像
 `build/FoloToy-AI-Passport.bin`，后者不包含完整且经校验的固件布局。
+
+主机测试在 Linux 使用 GNU `--gc-sections`，在 macOS 使用 Apple `-dead_strip`。Managed Components 就绪后还可运行 `tools/render_flappy_ui.sh`，以相同应用界面、字体和 24 KB LVGL 内存池进行声翼界面检查。

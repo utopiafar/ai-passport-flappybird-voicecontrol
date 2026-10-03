@@ -15,6 +15,27 @@
 - 添加字库前评估 Flash 与内部 RAM 影响；ESP32-C3 无 PSRAM。
 - 不提交许可不允许分发的字库。
 
+### 声翼字体
+
+`fonts/NotoSansSC-Flappy-subset.ttf` 是 [Noto Sans SC](https://github.com/google/fonts/tree/main/ofl/notosanssc)
+的 199 字符应用子集，从上游可变 TTF 实例化为字重 500；源文件 SHA-256 为
+`a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da`。
+按 SIL Open Font License 分发，许可保存在 `fonts/NotoSansSC-OFL.txt`，子集字体家族名为
+Noto Sans SC Flappy。`fonts/flappy_font_16.c` 是 16 px、4-bpp、未压缩的 LVGL 字形，
+直接编译到 `main`。`fonts/flappy_chars.txt` 保存可打印 ASCII 和全部固定中文字符，
+`fonts/flappy_glyphs.c` 用于启动覆盖检查。所有标签均显式绑定该字体。
+
+使用 Python/fonttools 4.60.1 和官方 `lv_font_conv` 1.5.3 再生成（脚本锁定版本，需要 Node/npm）：
+
+```bash
+python3 tools/generate_flappy_font.py assets/fonts/NotoSansSC-Flappy-subset.ttf
+python3 tests/test_flappy_font.py
+```
+
+新增子集中没有的字时，改为传入原始授权 TTF；转换前会断言源字形覆盖。
+小鸟、景物及 16 kHz / 16-bit 单声道合成音效均为本项目 MIT 许可下原创代码，
+未嵌入商业游戏素材或音频录音。
+
 ## 图片（images）
 
 可复用的源图与生成的显示资产放在 `images/`。

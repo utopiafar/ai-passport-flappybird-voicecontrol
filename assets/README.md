@@ -17,6 +17,33 @@ Store reusable font files and generated font sources in `fonts/`.
 - Check Flash and internal-RAM impact before adding a font; the ESP32-C3 has no PSRAM.
 - Do not commit fonts whose license does not permit redistribution.
 
+### Voice Flappy font
+
+`fonts/NotoSansSC-Flappy-subset.ttf` is the 199-character application subset
+of [Noto Sans SC](https://github.com/google/fonts/tree/main/ofl/notosanssc),
+instantiated at weight 500 from the variable upstream TTF (SHA-256
+`a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da`).
+The font is redistributed under the SIL Open Font License in
+`fonts/NotoSansSC-OFL.txt`. The subset family is named Noto Sans SC Flappy.
+`fonts/flappy_font_16.c` contains uncompressed 4-bpp LVGL glyphs at 16 px and
+is compiled directly into `main`. `fonts/flappy_chars.txt` records printable
+ASCII plus every fixed Chinese UI character; `fonts/flappy_glyphs.c` supports
+startup coverage checking. All application labels bind this font explicitly.
+
+Regenerate with Python/fonttools 4.60.1 and the official `lv_font_conv` 1.5.3
+(pinned in the script; requires Node/npm):
+
+```bash
+python3 tools/generate_flappy_font.py assets/fonts/NotoSansSC-Flappy-subset.ttf
+python3 tests/test_flappy_font.py
+```
+
+When adding a character absent from the subset, supply the original licensed
+TTF instead. Conversion asserts source coverage before producing the subset.
+The game sprite, scenery, and 16 kHz / 16-bit mono synthesized effects are
+original code under the repository MIT license; no commercial game assets or
+sound recordings are embedded.
+
 ## Images
 
 Store reusable source images and generated display assets in `images/`.
